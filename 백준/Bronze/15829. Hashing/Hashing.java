@@ -7,10 +7,14 @@ public class Main{
 		String str = sc.next();
 		char[] ch = new char[l];
 		long ans = 0;
+		long multi = 1;
+		
 		for (int i = 0; i < l; i++) {
 			ch[i] = str.charAt(i);
-			ans += (ch[i] - 96) * Math.pow(31, i) % 1234567891;
+			ans += (ch[i] - 96) * multi % 1234567891;
+			multi *= 31 % 1234567891;
 		}
+		
 		System.out.println(ans);
     }
 }
