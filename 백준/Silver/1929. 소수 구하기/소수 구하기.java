@@ -1,26 +1,31 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-		for (int i = a; i <= b; i++) {
-			if (solution(i)) System.out.println(i);
-		}
-	}
-    
-	public static boolean solution(int n) {
-		boolean answer = true;
-        
-        if (n < 2) return false;
-        
-		for (int i = 2; i <= Math.sqrt(n); i++) {
-			if (n % i == 0) {
-				return false;
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		
+		int M = Integer.parseInt(st.nextToken());
+		int N = Integer.parseInt(st.nextToken());
+		
+		boolean[] check = new boolean[N + 1];
+		check[0] = check[1] = true;
+		
+		StringBuilder sb = new StringBuilder();
+		for (int i = 2; i <= N; i++) {
+			if (check[i]) continue;
+			
+			if (i >= M) sb.append(i).append("\n");
+			
+			for (int j = i + i; j <= N; j += i) {
+				check[j] = true;
 			}
 		}
-		return answer;
+		
+		System.out.println(sb);
 	}
 }
