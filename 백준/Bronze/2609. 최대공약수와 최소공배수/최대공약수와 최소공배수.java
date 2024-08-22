@@ -1,25 +1,28 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-public class Main{
-    public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
-        int a = sc.nextInt();
-        int b = sc.nextInt();
-        int min = 0;
-        int max;
-        
-        if (a >= b){
-            int temp = a;
-            a = b;
-            b = temp;
-        }
-        
-        for (int i = 1; i <= a; i++){
-            if ((a % i == 0) && (b % i == 0)) min = i;
-        }
-        
-        max = a * b / min;
-        
-        System.out.printf("%d\n%d", min, max);
-    }
+public class Main {
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine());
+		int A = Integer.parseInt(st.nextToken());
+		int B = Integer.parseInt(st.nextToken());
+		
+		int g = GCD(A, B);
+		
+		System.out.println(g);
+		System.out.println(A * B / g);
+	}
+
+	private static int GCD(int a, int b) {
+		while (b > 0) {
+			int temp = a % b;
+			a = b;
+			b = temp;
+		}
+		return a;
+	}
 }
