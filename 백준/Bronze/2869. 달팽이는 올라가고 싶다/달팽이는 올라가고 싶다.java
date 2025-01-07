@@ -1,16 +1,22 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-public class Main{
-    public static void main(String[] args){
-        Scanner sc = new Scanner (System.in);
-        long a = sc.nextLong();
-        long b = sc.nextLong();
-        long v = sc.nextLong();
-        long ans;
-        
-        if ((v - b) % (a - b) == 0) ans = (v - b) / (a - b);
-        else ans = (v - b) / (a - b) + 1;
-        
-        System.out.println(ans);
+public class Main {
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int A = Integer.parseInt(st.nextToken());
+        int B = Integer.parseInt(st.nextToken());
+        int V = Integer.parseInt(st.nextToken());
+
+        if ((V - A) % (A - B) == 0) {
+            System.out.println((V - A) / (A - B) + 1);
+        }
+        else {
+            System.out.println((V - A) / (A - B) + 2);
+        }
     }
 }
