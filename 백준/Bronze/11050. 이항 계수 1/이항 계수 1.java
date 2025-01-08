@@ -1,24 +1,29 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-	
-//	n이 1보다 크고 10보다 작으므로 int로 정의한다
-	public static int factorial(int n) {
-		int answer = 1;
-		if (n > 1) {
-			for (int i = 2; i <= n; i++) {
-				answer *= i;
-			}
-		}
-		return answer;
-	}
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-        int ans = factorial(n) / factorial(k) / factorial(n - k);
-        System.out.println(ans);
+    static int[][] binomial;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-	}
+        int N = Integer.parseInt(st.nextToken());
+        int K = Integer.parseInt(st.nextToken());
+
+        binomial = new int[N + 1][K + 1];
+        System.out.println(getBinomial(N, K));
+    }
+
+    public static int getBinomial(int N, int K) {
+        if (N == K || K == 0) {
+            binomial[N][K] = 1;
+        }
+        if (binomial[N][K] == 0 && K < N) {
+            binomial[N][K] = getBinomial(N - 1,K - 1) + getBinomial(N - 1, K);
+        }
+
+        return binomial[N][K];
+    }
 }
