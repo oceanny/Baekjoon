@@ -1,25 +1,27 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class Main {
+    static int[] arr;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine());
+        arr = new int[11];
 
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-		int[] arr = new int[11];
-		int t = sc.nextInt();
-		
-		arr[0] = 0;
-		arr[1] = 1;
-		arr[2] = 2;
-		arr[3] = 4;
-		
-		for (int i = 0; i < t; i++) {
-			int a = sc.nextInt();
-			for (int j = 4; j <= a; j++) {
-				if (arr[j] != 0) continue; // 이전에 계산했다면 굳이 계산하지 않고 넘긴다
-				arr[j] = arr[j - 1] + arr[j - 2] + arr[j - 3];
-			}
-			System.out.println(arr[a]);
-		}
-        sc.close();
-	}
+        arr[1] = 1;
+        arr[2] = 2;
+        arr[3] = 4;
+
+        for (int i = 0; i < T; i++) {
+            System.out.println(dp(Integer.parseInt(br.readLine())));
+        }
+    }
+
+    private static int dp(int n) {
+        if (arr[n] == 0) {
+            arr[n] = dp(n - 3) + dp(n - 2) + dp(n - 1);
+        }
+        return arr[n];
+    }
 }
