@@ -1,61 +1,44 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
+    static int N;
+    static int[][] graph;
+    static boolean[] visited;
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        int cnt = 0;
 
-	static boolean[] visited; // 방문 배열
-	static ArrayList<Integer>[] A; // 인접 리스트 배열
-    
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine());
-        
-		int n = Integer.parseInt(st.nextToken()); // 정점의 개수
-		int m = Integer.parseInt(st.nextToken()); // 간선의 개수
-		visited = new boolean[n + 1];
-		A = new ArrayList[n + 1];
-        
-		// 배열의 요소를 리스트로 선언
-		for (int i = 1; i <= n; i++) {
-			A[i] = new ArrayList<>();
-		}
-        
-		// 인접 리스트에 인접 요소 저장
-		for (int i = 1; i <= m; i++) {
-			st = new StringTokenizer(br.readLine());
-			int u = Integer.parseInt(st.nextToken());
-			int v = Integer.parseInt(st.nextToken());
-			// 간선의 방향이 제시되어있지 않음
-			// 따라서 양방향으로 설정
-			A[u].add(v);
-			A[v].add(u);
-		}
-		
-		int count = 0;
-		for (int v = 1; v <= n; v++) {
-			if (!visited[v]) {
-				count++;
-				DFS(v);
-			}
-		}
-		
-		System.out.println(count);
-	}
-	
-	private static void DFS(int v) {
-		if (visited[v]) {
-			return;
-		}
-		
-		visited[v] = true;
-		for (int i : A[v]) {
-			if (!visited[i]) {
-				DFS(i);
-			}
-		}
-		
-	}
+        graph = new int[N + 1][N + 1];
+        visited = new boolean[N + 1];
+
+        for (int i = 0; i < M; i++) {
+            st = new StringTokenizer(br.readLine());
+            int u = Integer.parseInt(st.nextToken());
+            int v = Integer.parseInt(st.nextToken());
+            graph[u][v] = 1;
+            graph[v][u] = 1;
+        }
+
+        for (int i = 1; i <= N; i++) {
+            if (!visited[i]) {
+                dfs(i);
+                cnt++;
+            }
+        }
+
+        System.out.println(cnt);
+    }
+
+    private static void dfs(int x) {
+        visited[x] = true;
+        for (int i = 1; i <= N; i++) {
+            if (graph[x][i] == 1 && !visited[i]) dfs(i);
+        }
+    }
 }
