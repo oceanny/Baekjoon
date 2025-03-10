@@ -9,20 +9,27 @@ public class Main {
         int M = Integer.parseInt(br.readLine());
         String S = br.readLine();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("I");
-        int cnt = 1;
-        while (cnt <= N) {
-            sb.append("OI");
-            cnt++;
-        }
-        String str = sb.toString();
         int ans = 0;
 
-        for (int i = 0; i < M; i++) {
-            if (i == M - 2 * N) break;
-            String tmp = S.substring(i, i + 2 * N + 1);
-            if (tmp.equals(str)) ans++;
+        int left = 0;
+        int right = 3;
+        int cnt = 0;
+
+        while (right <= M) {
+            if (S.substring(left, right).equals("IOI")) {
+                left += 2;
+                right += 2;
+                cnt++;
+                if (cnt == N) {
+                    ans++;
+                    cnt--;
+                }
+            }
+            else {
+                left++;
+                right++;
+                cnt = 0;
+            }
         }
 
         System.out.println(ans);
